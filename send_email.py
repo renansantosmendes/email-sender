@@ -6,6 +6,7 @@ line with the recipient, the subject and the message:
 
     uv run python send_email.py user@example.com "Assunto" "Olá!"
 """
+
 import argparse
 import os
 import sys
@@ -92,7 +93,9 @@ def send_email(
     """
     api_key = os.environ.get("RESEND_API_KEY")
     if not api_key:
-        raise RuntimeError("RESEND_API_KEY is not set. Put it in the environment or in a .env file.")
+        raise RuntimeError(
+            "RESEND_API_KEY is not set. Put it in the environment or in a .env file."
+        )
     resend.api_key = api_key
     from_address = sender or os.environ.get("RESEND_FROM") or DEFAULT_SENDER
     response = resend.Emails.send(build_payload(from_address, recipient, subject, text))
